@@ -1,0 +1,29 @@
+name: .NET 9.0 CI
+
+on:
+  push:
+    branches: [ "main" ]   # or "master" if your branch is called master
+  pull_request:
+    branches: [ "main" ]   # change to master if needed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 9.0
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'   # This tells GitHub to install .NET 9
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build the project
+      run: dotnet build --no-restore
+
+    - name: Test the project
+      run: dotnet test --no-build --verbosity normal
