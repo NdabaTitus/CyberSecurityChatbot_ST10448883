@@ -5,13 +5,13 @@ using System.Threading;
 
 namespace CyberSecurityChatbot
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
             try
             {
-                // Play Voice Greeting
+                // Play greeting audio file if available
                 string greetingPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "greeting.wav");
                 if (File.Exists(greetingPath))
                 {
@@ -25,10 +25,9 @@ namespace CyberSecurityChatbot
                     Console.ResetColor();
                 }
 
-                // Display ASCII Art
+                // Load and display ASCII Art
                 string asciiPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "ascii_art..txt");
-
-                Console.WriteLine($"[DEBUG] Trying to load ASCII Art from: {asciiPath}"); // Debug info
+                Console.WriteLine($"[DEBUG] Trying to load ASCII Art from: {asciiPath}");
 
                 if (File.Exists(asciiPath))
                 {
@@ -42,27 +41,28 @@ namespace CyberSecurityChatbot
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("[Error] ASCII Art file not found at: " + asciiPath);
                     Console.ResetColor();
-                    Environment.Exit(1); // Stop program if ASCII art is missing
+                    Environment.Exit(1); // Exit if important resources are missing
                 }
 
-                // Decorative Header
+                // Display chatbot header
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine(new string('*', 60));
                 Console.WriteLine("*                 Cybersecurity Awareness Bot                  *");
                 Console.WriteLine(new string('*', 60));
                 Console.ResetColor();
 
-                // Typing effect intro
+                // Typing effect for welcome message
                 foreach (char c in "Let's stay safe online!\n")
                 {
                     Console.Write(c);
-                    Thread.Sleep(50); // Typing effect
+                    Thread.Sleep(50);
                 }
 
                 // Ask for user's name
                 Console.Write("\nPlease enter your name: ");
                 string userName = Console.ReadLine();
 
+                // Validate user's input
                 while (string.IsNullOrWhiteSpace(userName))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -76,7 +76,7 @@ namespace CyberSecurityChatbot
                 Console.WriteLine($"\nWelcome, {userName}! I'm here to answer your cybersecurity questions.\n");
                 Console.ResetColor();
 
-                // Display question options
+                // Display examples of questions user can ask
                 Console.WriteLine("You can ask me questions like:");
                 Console.WriteLine("- How are you?");
                 Console.WriteLine("- What's your purpose?");
@@ -84,9 +84,15 @@ namespace CyberSecurityChatbot
                 Console.WriteLine("- What is phishing?");
                 Console.WriteLine("- How can I protect my passwords?");
                 Console.WriteLine("- What are safe browsing habits?");
+                // --- Suggested extra cybersecurity questions ---
+                Console.WriteLine("- What is malware?");
+                Console.WriteLine("- How can I recognize a secure website?");
+                Console.WriteLine("- What should I do if I think my account is hacked?");
+                Console.WriteLine("- What is two-factor authentication?");
+                Console.WriteLine("- What are some common signs of a phishing email?");
+                // ------------------------------------------------
                 Console.WriteLine("\nType your question below:");
 
-                // Start conversation loop
                 string userQuestion = Console.ReadLine();
 
                 while (true)
@@ -101,6 +107,7 @@ namespace CyberSecurityChatbot
                     {
                         string questionLower = userQuestion.ToLower();
 
+                        // Match user input with available answers
                         if (questionLower.Contains("how are you"))
                         {
                             Console.WriteLine("I'm just a bot, but I'm doing great! Thanks for asking.");
@@ -111,19 +118,40 @@ namespace CyberSecurityChatbot
                         }
                         else if (questionLower.Contains("what can i ask"))
                         {
-                            Console.WriteLine("You can ask me about password safety, phishing scams, and safe browsing habits.");
+                            Console.WriteLine("You can ask me about password safety, phishing scams, malware, safe browsing, and more.");
                         }
                         else if (questionLower.Contains("phishing"))
                         {
                             Console.WriteLine("Phishing is a type of cyber attack where malicious actors attempt to trick you into revealing personal or financial information, often via email or fake websites.");
                         }
-                        else if (questionLower.Contains("passwords"))
+                        else if (questionLower.Contains("password"))
                         {
                             Console.WriteLine("To protect your passwords, use strong, unique passwords for each account, enable two-factor authentication, and avoid reusing passwords across sites.");
                         }
                         else if (questionLower.Contains("safe browsing"))
                         {
                             Console.WriteLine("Safe browsing habits include avoiding suspicious websites, not clicking on unknown links, keeping your browser updated, and using a VPN when necessary.");
+                        }
+                        // New cybersecurity topics
+                        else if (questionLower.Contains("malware"))
+                        {
+                            Console.WriteLine("Malware is malicious software designed to harm, exploit, or otherwise compromise computers or networks. Keep your antivirus updated and avoid downloading from untrusted sources.");
+                        }
+                        else if (questionLower.Contains("secure website"))
+                        {
+                            Console.WriteLine("A secure website uses HTTPS, has a valid SSL certificate (look for the lock icon next to the URL), and belongs to trusted organizations.");
+                        }
+                        else if (questionLower.Contains("account hacked"))
+                        {
+                            Console.WriteLine("If you think your account is hacked, change your passwords immediately, enable two-factor authentication, and notify the service provider.");
+                        }
+                        else if (questionLower.Contains("two-factor"))
+                        {
+                            Console.WriteLine("Two-factor authentication adds an extra layer of security by requiring a second form of verification, like a code sent to your phone, along with your password.");
+                        }
+                        else if (questionLower.Contains("sign of a"))
+                        {
+                            Console.WriteLine("Signs of a phishing email include poor spelling/grammar, urgent requests for personal info, suspicious links, and sender addresses that look fake or unusual.");
                         }
                         else
                         {
@@ -133,7 +161,7 @@ namespace CyberSecurityChatbot
                         }
                     }
 
-                    // Ask again
+                    // Prompt for another question or exit
                     Console.WriteLine("\nAsk another question or type 'exit' to leave:");
                     userQuestion = Console.ReadLine();
 
@@ -148,6 +176,7 @@ namespace CyberSecurityChatbot
             }
             catch (Exception ex)
             {
+                // Handle any unexpected errors
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("[Critical Error] " + ex.Message);
                 Console.ResetColor();
