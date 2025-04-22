@@ -52,7 +52,7 @@ namespace CyberSecurityChatbot
                 Console.ResetColor();
 
                 // Typing effect for welcome message
-                foreach (char c in "Let's stay safe online!\n")
+                foreach (char c in "Welcome to the SecureBuddy\nLet's stay safe online!\n")
                 {
                     Console.Write(c);
                     Thread.Sleep(50);
@@ -76,7 +76,7 @@ namespace CyberSecurityChatbot
                 Console.WriteLine($"\nWelcome, {userName}! I'm here to answer your cybersecurity questions.\n");
                 Console.ResetColor();
 
-                // Display examples of questions user can ask
+                // Questions user can ask
                 Console.WriteLine("You can ask me questions like:");
                 Console.WriteLine("- How are you?");
                 Console.WriteLine("- What's your purpose?");
@@ -84,13 +84,11 @@ namespace CyberSecurityChatbot
                 Console.WriteLine("- What is phishing?");
                 Console.WriteLine("- How can I protect my passwords?");
                 Console.WriteLine("- What are safe browsing habits?");
-                // --- Suggested extra cybersecurity questions ---
                 Console.WriteLine("- What is malware?");
                 Console.WriteLine("- How can I recognize a secure website?");
                 Console.WriteLine("- What should I do if I think my account is hacked?");
                 Console.WriteLine("- What is two-factor authentication?");
                 Console.WriteLine("- What are some common signs of a phishing email?");
-                // ------------------------------------------------
                 Console.WriteLine("\nType your question below:");
 
                 string userQuestion = Console.ReadLine();
@@ -132,7 +130,6 @@ namespace CyberSecurityChatbot
                         {
                             Console.WriteLine("Safe browsing habits include avoiding suspicious websites, not clicking on unknown links, keeping your browser updated, and using a VPN when necessary.");
                         }
-                        // New cybersecurity topics
                         else if (questionLower.Contains("malware"))
                         {
                             Console.WriteLine("Malware is malicious software designed to harm, exploit, or otherwise compromise computers or networks. Keep your antivirus updated and avoid downloading from untrusted sources.");
